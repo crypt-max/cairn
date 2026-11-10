@@ -115,31 +115,75 @@
 
   /* ---------- videos (language + device aware) ---------- */
   const mobileQ = matchMedia('(max-width: 860px)');
-  function videoName(v) { const base = (mobileQ.matches && v.dataset.baseM) || v.dataset.base; return 'media/' + base + (lang === 'ru' ? '-ru' : ''); }
+
+  function videoName(v) {
+    const base = (mobileQ.matches && v.dataset.baseM) || v.dataset.base;
+    return 'media/' + base + (lang === 'ru' ? '-ru' : '');
+  }
+
   function setVideoSources() {
     $$('video[data-base]').forEach(v => {
       const n = videoName(v);
+      const nextSrc = n + '.mp4';
       v.poster = n + '.jpg';
       const was = v.dataset.film;
-      v.dataset.film = n + '.mp4';
-      if (v.dataset.loaded && was !== v.dataset.film) { v.src = v.dataset.film; if (v.dataset.visible && !reduce) v.play().catch(() => {}); }
-      const fr = v.closest('.film-frame'); if (fr) fr.classList.toggle('is-vertical', mobileQ.matches);
+
+      if (was !== nextSrc) {
+        v.dataset.film = nextSrc;
+        v.dataset.loaded = '1';
+        v.src = nextSrc;
+        v.load();
+        if (v.dataset.visible === '1') {
+          v.play().catch(err => console.warn('CAIRN video play blocked:', nextSrc, err));
+        }
+      }
+
+      const fr = v.closest('.film-frame');
+      if (fr) fr.classList.toggle('is-vertical', mobileQ.matches);
     });
   }
+
+  // Set the MP4 source immediately instead of waiting for the observer.
+  setVideoSources();
+
+  $$('video[data-base]').forEach(v => {
+    v.muted = true;
+    v.playsInline = true;
+    v.addEventListener('error', () => {
+      console.error('CAIRN video load error:', v.dataset.film, v.error);
+    });
+  });
+
   const vidObs = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
     if (e.isIntersecting) {
       v.dataset.visible = '1';
-      if (!v.dataset.loaded) { v.src = v.dataset.film; v.dataset.loaded = '1'; }
-      if (!reduce) v.play().catch(() => {});
-    } else { delete v.dataset.visible; v.pause(); }
-  }), { threshold: 0.35 });
+      v.play().catch(err => {
+        console.warn('CAIRN autoplay blocked:', v.dataset.film, err);
+        v.controls = true;
+      });
+    } else {
+      delete v.dataset.visible;
+      v.pause();
+    }
+  }), { threshold: 0.05, rootMargin: '100px 0px' });
+
   $$('video[data-base]').forEach(v => vidObs.observe(v));
   mobileQ.addEventListener('change', setVideoSources);
+
   const film = $('#film-video'), soundBtn = $('#film-sound');
   soundBtn && soundBtn.addEventListener('click', () => {
-    if (film.muted) { film.muted = false; film.currentTime = 0; film.loop = false; film.play(); soundBtn.querySelector('span').textContent = lang === 'ru' ? 'Выключить звук' : 'Mute'; }
-    else { film.muted = true; film.loop = true; soundBtn.querySelector('span').textContent = lang === 'ru' ? I.ru['f.sound'] : EN['f.sound']; }
+    if (film.muted) {
+      film.muted = false;
+      film.currentTime = 0;
+      film.loop = false;
+      film.play().catch(err => console.warn('CAIRN sound playback blocked:', err));
+      soundBtn.querySelector('span').textContent = lang === 'ru' ? 'Выключить звук' : 'Mute';
+    } else {
+      film.muted = true;
+      film.loop = true;
+      soundBtn.querySelector('span').textContent = lang === 'ru' ? I.ru['f.sound'] : EN['f.sound'];
+    }
   });
 
   /* ---------- page trail ---------- */
