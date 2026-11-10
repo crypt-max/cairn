@@ -321,7 +321,4 @@ p { margin: 0; text-wrap: pretty; }
   .post-levels { grid-template-columns: repeat(3, auto); row-gap: 10px; }
   .sign { font-size: 15px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
-  .tape-track { animation: none; }
-}
+/* Motion is intentionally retained: the CAIRN page relies on animated route storytelling. */
