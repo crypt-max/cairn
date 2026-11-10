@@ -2,9 +2,6 @@
 
 Plain HTML/CSS/JS, no build step. All paths are relative, so it works on GitHub Pages under a sub-path.
 
-## Local preview
-    cd site && python3 -m http.server 8787   →  http://127.0.0.1:8787/
-
 ## Deploy to GitHub Pages
 1. Create a repo and push the contents of this `site/` folder to `main` (root).
 2. Settings → Pages → Source: "Deploy from a branch", branch `main`, folder `/ (root)`.
