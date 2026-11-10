@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAIRN — crypto signals, marked like a trail</title>
+<meta name="description" content="Ready-made crypto trades in Telegram: where to enter, where to take profit, where to turn back. Explained in plain words.">
+<meta name="theme-color" content="#ECEEE8">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Geologica-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="vendor/lenis.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!--
+THESIS: A signal is a marked route, not a hype number. The page refuses the category default (neon dark terminal, phones, robots, "96% accuracy") and shows the trade as a trail on a living topographic map: trailhead = entry, cairns = targets, turn-back point = stop.
+OWN-WORLD: cool survey-map ground, burnt-sienna contour lines, ink lettering, Swiss-signpost yellow arrow plates for every action, trail-red dashes, forest green for targets, blaze red for stops, glacier blue for notes; Geologica display, Martian Mono only for prices and measurements; square-ish 4px plates, no pills, no cards-in-cards.
+STORY: the visitor sees a trade walk its route (including a loss), learns each part through everyday analogies, checks an honest journal, then joins Telegram.
+FIRST VIEWPORT: left 40% headline + signpost CTA + risk line; right 60% full-bleed contour map where a live route walks entry → targets or stop, with a yellow signpost plate narrating the state.
+FORM: topographic trail map, own list #4, seed key 8928426e.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="nav" id="top">
+  <a class="brand" href="#top" aria-label="CAIRN home">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="26" rx="11" ry="4.2"/><ellipse cx="15" cy="18.6" rx="8" ry="3.6"/><ellipse cx="16.6" cy="12" rx="5.6" ry="3"/><ellipse cx="15.8" cy="6.6" rx="3.4" ry="2.2"/></svg>
+    <span>CAIRN</span>
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#anatomy" data-i18n="nav.how">How a signal works</a>
+    <a href="#journal" data-i18n="nav.journal">Journal</a>
+    <a href="#film" data-i18n="nav.film">Film</a>
+    <a href="#plans" data-i18n="nav.plans">Plans</a>
+    <a href="#faq" data-i18n="nav.faq">FAQ</a>
+  </nav>
+  <div class="nav-end">
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+    <a class="sign sign--sm" href="#plans" data-tg><span data-i18n="cta.join">Join Telegram</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-map" aria-hidden="true">
+    <canvas id="terrain"></canvas>
+  </div>
+  <div class="hero-copy">
+    <h1 id="hero-title" data-i18n="hero.title">Every trade is a route. We mark the way.</h1>
+    <p class="hero-sub" data-i18n="hero.sub">CAIRN posts ready-made crypto trades in Telegram: where to enter, where to take profit and where to turn back. Each one explained in plain words — no chart reading needed.</p>
+    <div class="hero-actions">
+      <a class="sign" href="#plans" data-tg><span data-i18n="cta.free">Join the free channel</span></a>
+      <a class="link-arrow" href="#anatomy" data-i18n="cta.how">How to read a signal</a>
+    </div>
+    <p class="risk-line" data-i18n="hero.risk">Trading carries a risk of loss. A signal is information, not a promise of profit.</p>
+  </div>
+
+  <aside class="post" id="post" aria-live="polite" aria-label="Live example signal">
+    <div class="post-head">
+      <span class="post-pair" id="post-pair">BTC/USDT</span>
+      <span class="post-side" id="post-side">LONG</span>
+      <span class="demo-tag" data-i18n="demo">Demo</span>
+    </div>
+    <dl class="post-levels" id="post-levels"></dl>
+    <p class="post-state" id="post-state"></p>
+    <p class="post-note" id="post-note"></p>
+  </aside>
+</section>
+
+<!-- TAPE -->
+<section class="tape" aria-label="Recently closed trades (demo)">
+  <div class="tape-track" id="tape"></div>
+</section>
+
+<!-- WHAT -->
+<section class="what" id="what">
+  <div class="wrap what-grid">
+    <h2 data-i18n="what.title">A signal is a route card from someone who walked the mountain before you.</h2>
+    <div class="what-text">
+      <p data-i18n="what.p1">A hiking guide doesn't carry you up the hill. They give you a card: start here, rest at these viewpoints, and if the weather turns at this rock — go back down. You still walk it yourself.</p>
+      <p data-i18n="what.p2">A CAIRN signal is that card for one trade. Five lines, always in the same order, always with a turn-back point. Below, every line is explained with an example from ordinary life.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANATOMY -->
+<section class="anatomy" id="anatomy" aria-labelledby="anatomy-title">
+  <div class="wrap">
+    <h2 id="anatomy-title" class="sec-title" data-i18n="anat.title">How to read a signal — in everyday words</h2>
+  </div>
+  <div class="wrap anatomy-grid">
+    <div class="anatomy-figure">
+      <div class="figure-sticky">
+        <div class="sample">
+          <div class="sample-head"><b>BTC/USDT</b><span>LONG</span><span class="demo-tag" data-i18n="demo">Demo</span></div>
+          <ol class="sample-lines">
+            <li data-k="pair"><span data-i18n="lbl.pair">Pair · direction</span><b>BTC/USDT · LONG</b></li>
+            <li data-k="entry"><span data-i18n="lbl.entry">Entry zone</span><b>64 200 – 64 800</b></li>
+            <li data-k="tp"><span data-i18n="lbl.tp">Targets</span><b>65 900 · 67 300 · 68 900</b></li>
+            <li data-k="sl"><span data-i18n="lbl.sl">Stop-loss</span><b>62 900</b></li>
+            <li data-k="lev"><span data-i18n="lbl.lev">Leverage</span><b>× 3 <small data-i18n="lbl.levmax">max</small></b></li>
+            <li data-k="risk"><span data-i18n="lbl.risk">Risk per trade</span><b>1 %</b></li>
+          </ol>
+        </div>
+        <svg class="route-fig" id="route-fig" viewBox="0 0 560 300" aria-hidden="true"></svg>
+      </div>
+    </div>
+    <ol class="anatomy-steps">
+      <li class="step" data-k="pair">
+        <h3 data-i18n="a1.t">Pair and direction — your shopping list</h3>
+        <p data-i18n="a1.p">“BTC/USDT · LONG” reads as: buy bitcoin with dollars, because we expect it to get more expensive. “SHORT” is the reverse — you earn if the price goes down. Like a shopping list: it says what to buy, not when to panic.</p>
+      </li>
+      <li class="step" data-k="entry">
+        <h3 data-i18n="a2.t">Entry zone — buy on the discount shelf</h3>
+        <p data-i18n="a2.p">We give a price range, not one magic number. Think of a jacket on sale between Monday and Wednesday: anywhere inside that window is a fair price. If the price already ran away above the zone — don't chase it, the sale is over.</p>
+      </li>
+      <li class="step" data-k="tp">
+        <h3 data-i18n="a3.t">Targets — sell the harvest in parts</h3>
+        <p data-i18n="a3.p">A gardener doesn't wait for one perfect day to sell every apple. A third goes on Monday, a third midweek, the last third if prices stay good. At each target (TP1, TP2, TP3) you close a part of the trade and put profit in your pocket.</p>
+      </li>
+      <li class="step" data-k="sl">
+        <h3 data-i18n="a4.t">Stop-loss — the fuse in your flat</h3>
+        <p data-i18n="a4.p">When something shorts, the fuse cuts the power before the wiring burns. The stop-loss closes the trade at a small, known loss before it turns into a big one. Some trades will hit it — that is the fuse working, not failing. Never trade without it.</p>
+      </li>
+      <li class="step" data-k="tp">
+        <h3 data-i18n="a5.t">After the first target — a free ticket home</h3>
+        <p data-i18n="a5.p">Once TP1 is reached we post “move stop to entry”. Like a return ticket that's already paid for: the rest of the trip can no longer cost you your own money (apart from small fees and slippage).</p>
+      </li>
+      <li class="step" data-k="lev">
+        <h3 data-i18n="a6.t">Leverage — a rented truck</h3>
+        <p data-i18n="a6.p">A truck carries more than a car, but every pothole hits harder. With ×3 leverage a 1 % move in price becomes 3 % of your money — both ways. We always write the maximum; beginners can ignore it and trade without leverage at all.</p>
+      </li>
+      <li class="step" data-k="risk">
+        <h3 data-i18n="a7.t">Risk per trade — don't put the salary on one horse</h3>
+        <p data-i18n="a7.p">Size each trade so that hitting the stop costs about 1–2 % of your deposit. Then even five losses in a row are a scratch, not a disaster — and you're still there for the good trades.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps" id="steps" aria-labelledby="steps-title">
+  <div class="wrap">
+    <h2 id="steps-title" class="sec-title" data-i18n="steps.title">Using it takes three moves</h2>
+    <div class="steps-row">
+      <figure class="clip">
+        <video muted loop playsinline preload="none" data-base="step1" aria-hidden="true"></video>
+        <figcaption><b data-i18n="s1.t">The signal arrives in Telegram</b><span data-i18n="s1.p">A notification with the five lines. You don't need to be online the moment it's posted — the entry zone gives you time.</span></figcaption>
+      </figure>
+      <figure class="clip">
+        <video muted loop playsinline preload="none" data-base="step2" aria-hidden="true"></video>
+        <figcaption><b data-i18n="s2.t">Copy the numbers to your exchange</b><span data-i18n="s2.p">A limit order at the entry price, targets and stop in the same form. Our step-by-step guide shows each button.</span></figcaption>
+      </figure>
+      <figure class="clip">
+        <video muted loop playsinline preload="none" data-base="step3" aria-hidden="true"></video>
+        <figcaption><b data-i18n="s3.t">Let the orders do the work</b><span data-i18n="s3.p">Close the app. When something changes — target hit, stop moved — we post an update in the same thread.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section class="journal" id="journal" aria-labelledby="journal-title">
+  <div class="wrap">
+    <div class="journal-head">
+      <h2 id="journal-title" class="sec-title" data-i18n="j.title">The journal keeps the losses too</h2>
+      <p class="demo-banner"><span class="demo-tag" data-i18n="demo">Demo</span> <span data-i18n="j.demo">Example data to show the format. The real journal replaces it at launch.</span></p>
+    </div>
+    <div class="journal-stats" id="jstats"></div>
+    <p class="method" data-i18n="j.method">How we count: a trade is a win if it reached at least TP1 before the stop. Results are in R — one R is the amount you'd lose at the stop. Every signal ever posted stays in the table, closed or not.</p>
+    <div class="table-wrap">
+      <table class="jtable">
+        <thead><tr>
+          <th data-i18n="j.date">Date</th><th data-i18n="j.pair">Pair</th><th data-i18n="j.side">Side</th>
+          <th class="num" data-i18n="j.entry">Entry</th><th class="num" data-i18n="j.stop">Stop</th><th data-i18n="j.out">Outcome</th><th class="num">R</th>
+        </tr></thead>
+        <tbody id="jbody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FILM -->
+<section class="film" id="film" aria-labelledby="film-title">
+  <div class="wrap film-grid">
+    <div class="film-copy">
+      <h2 id="film-title" class="sec-title" data-i18n="f.title">Forty seconds, one route</h2>
+      <p data-i18n="f.p">A short film about what a signal is and how a CAIRN trade is walked — from the post in Telegram to the last target, or the stop.</p>
+      <button class="sign sign--ghost" type="button" id="film-sound"><span data-i18n="f.sound">Play with sound</span></button>
+    </div>
+    <div class="film-frame">
+      <video id="film-video" muted loop playsinline preload="none" data-base="promo" data-base-m="reel"></video>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="plans" id="plans" aria-labelledby="plans-title">
+  <div class="wrap">
+    <div class="plans-head">
+      <h2 id="plans-title" class="sec-title" data-i18n="p.title">Pick how far you want to go</h2>
+      <p class="demo-banner"><span class="demo-tag" data-i18n="demo">Demo</span> <span data-i18n="p.demo">Prices are placeholders until launch.</span></p>
+    </div>
+    <div class="plans-row">
+      <article class="plan">
+        <h3>Trailhead</h3>
+        <p class="price"><b data-i18n="p.free">Free</b></p>
+        <ul>
+          <li data-i18n="p1.a">2–3 signals a week in the open channel</li>
+          <li data-i18n="p1.b">Weekly results digest</li>
+          <li data-i18n="p1.c">Beginner guide: your first trade, step by step</li>
+        </ul>
+        <a class="sign sign--ghost" href="#" data-tg><span data-i18n="cta.free">Join the free channel</span></a>
+      </article>
+      <article class="plan plan--main">
+        <h3>Ridge</h3>
+        <p class="price"><b>$39</b><span data-i18n="p.mo">/ month</span></p>
+        <ul>
+          <li data-i18n="p2.a">Every signal — spot and futures</li>
+          <li data-i18n="p2.b">Live updates: targets hit, stop moved, early exit</li>
+          <li data-i18n="p2.c">Each signal comes with a plain-words explanation</li>
+          <li data-i18n="p2.d">Questions answered in the members chat</li>
+        </ul>
+        <a class="sign" href="#" data-tg><span data-i18n="p.get">Get Ridge</span></a>
+      </article>
+      <article class="plan">
+        <h3>Summit</h3>
+        <p class="price"><b>$99</b><span data-i18n="p.qt">/ 3 months</span></p>
+        <ul>
+          <li data-i18n="p3.a">Everything in Ridge</li>
+          <li data-i18n="p3.b">Auto-copy setup: orders placed on your exchange by a connector bot</li>
+          <li data-i18n="p3.c">Monthly call with the analysts</li>
+        </ul>
+        <a class="sign sign--ghost" href="#" data-tg><span data-i18n="p.get3">Get Summit</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICIAL -->
+<section class="official" id="official" aria-labelledby="official-title">
+  <div class="wrap official-grid">
+    <h2 id="official-title" class="sec-title" data-i18n="o.title">Only these addresses are ours</h2>
+    <dl class="official-list">
+      <div><dt>Telegram</dt><dd><b>@cairn_signals</b> <small data-i18n="o.ph">placeholder</small></dd></div>
+      <div><dt data-i18n="o.site">Website</dt><dd><b>cairn…/</b> <small data-i18n="o.ph">placeholder</small></dd></div>
+    </dl>
+    <ul class="never">
+      <li data-i18n="o.n1">We never write to you first.</li>
+      <li data-i18n="o.n2">We never ask for exchange passwords, API withdrawal rights or seed phrases.</li>
+      <li data-i18n="o.n3">We never “manage your funds” or accept deposits. Anyone offering that in our name is a scammer.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <h2 id="faq-title" class="sec-title" data-i18n="q.title">Honest answers</h2>
+    <div class="faq-list">
+      <details><summary data-i18n="q1.q">Can I lose money?</summary><p data-i18n="q1.a">Yes. Some signals end at the stop-loss — you can see them in the journal. That's why every signal has a stop and why we recommend risking only 1–2 % of your deposit per trade.</p></details>
+      <details><summary data-i18n="q2.q">Do I need to understand charts?</summary><p data-i18n="q2.a">No. You need to copy five numbers into an order form. Our guide shows where each one goes on popular exchanges.</p></details>
+      <details><summary data-i18n="q3.q">How much money do I need to start?</summary><p data-i18n="q3.a">Most exchanges allow trades from about $10. Start with an amount you are fully prepared to lose while you learn the routine.</p></details>
+      <details><summary data-i18n="q4.q">What if I missed the entry?</summary><p data-i18n="q4.a">If the price is already above the entry zone (for a long) — skip the trade. Chasing a price is the most common beginner mistake. Another route will come.</p></details>
+      <details><summary data-i18n="q5.q">Is this financial advice?</summary><p data-i18n="q5.a">No. Signals are analytical information and education. You decide whether to trade and you are responsible for your account.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close" aria-labelledby="close-title">
+  <div class="wrap">
+    <h2 id="close-title" data-i18n="c.title">The next route is posted in Telegram.</h2>
+    <a class="sign sign--lg" href="#" data-tg><span data-i18n="cta.free">Join the free channel</span></a>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="disclaimer" data-i18n="legal">Risk warning. Trading cryptocurrencies, especially with leverage, carries a high risk of losing some or all of your money. Past results, including the journal on this page, do not guarantee future results. CAIRN publishes analytical information and educational content; it is not investment, financial or tax advice and not an offer to buy or sell any asset. CAIRN does not hold or manage client funds. Check whether crypto trading services are permitted in your country.</p>
+    <div class="foot-row">
+      <span>© 2026 CAIRN</span>
+      <a href="#top" data-i18n="foot.top">Back to the trailhead ↑</a>
+    </div>
+  </div>
+  <div class="wordmark" aria-hidden="true">CAIRN</div>
+</footer>
+
+<div class="trail" aria-hidden="true"><svg id="trail-svg"><path id="trail-path"/><path id="trail-done"/></svg></div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/terrain.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
