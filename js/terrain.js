@@ -298,7 +298,8 @@
   /* ---------- live hero on the site ---------- */
   const canvas = document.getElementById('terrain');
   if (!canvas) return;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Keep the designed topographic route animation active across devices.
+  const reduce = false;
   const map = createMap(canvas, { reduce });
   const fit = () => { const r = canvas.getBoundingClientRect(); map.resize(r.width, r.height); };
   fit();
