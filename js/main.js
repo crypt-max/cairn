@@ -214,7 +214,7 @@
   addEventListener('load', layoutTrail);
 
   /* ---------- smooth scroll + reveals ---------- */
-  if (!reduce && window.Lenis && window.gsap) {
+  if (window.Lenis && window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
     const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 0.95 });
     lenis.on('scroll', () => { ScrollTrigger.update(); onScroll(); });
